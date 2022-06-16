@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound</title>
+</head>
+
+<body>
+    <style>
+        body{
+            background-image: url(back.jpg) ;
+            background-position: center;
+        }
+        #bbox {
+            width: 600px;
+            height: 60px;
+            /* border: 2px solid red; */
+            text-align: center;
+            /* margin: auto; */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -30px;
+            margin-left: -300px;
+
+        }
+
+        .box {
+            margin: 5px 3px;
+            width: 50px;
+            height: 30px;
+
+            border-radius: 5px;
+            background-color: rgb(4, 3, 3);
+
+            display: inline-block;
+            text-align: center;
+            font-size: 30px;
+            color: white;
+            font-weight: bold;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            cursor: pointer;
+            transition: border 0.5s, box-shadow 0.5s;
+            
+            
+        }
+
+        .box.active{
+            scale: (1,1);
+            border: 5px solid rgb(242, 223, 8);
+            box-shadow: 10px rgb(241, 222, 3);
+        }
+
+        div :hover {
+            border: 2px solid rgb(242, 223, 8);
+            box-shadow: 0px 0px 5px rgb(242, 223, 8);
+        }
+    </style>
+
+    <div id="bbox">
+        <div data-key="65" class="box">A</div>
+        <div data-key="83" class="box">S</div>
+        <div data-key="68" class="box">D</div>
+        <div data-key="70" class="box">F</div>
+        <div data-key="71" class="box">G</div>
+        <div data-key="72" class="box">H</div>
+        <div data-key="74" class="box">J</div>
+        <div data-key="75" class="box">K</div>
+        <div data-key="76" class="box">L</div>
+
+    </div>
+    <audio data-key="65" src="sound-a.mp3"></audio>
+    <audio data-key="83" src="sound-s.mp3"></audio>
+    <audio data-key="68" src="sound-d.mp3"></audio>
+    <audio data-key="70" src="sound-f.mp3"></audio>
+    <audio data-key="71" src="sound-g.mp3"></audio>
+    <audio data-key="72" src="sound-h.mp3"></audio>
+    <audio data-key="74" src="sound-j.mp3"></audio>
+    <audio data-key="75" src="sound-k.mp3"></audio>
+    <audio data-key="76" src="sound-l.mp3"></audio>
+</body>
+<script>
+    function playing(e){
+        const audio = document.querySelector(`audio[data-key= "${e.keyCode}"]`)
+        if(!audio) return;
+        audio.currentTime = 0;
+        audio.play();
+        const box = document.querySelector(`div[data-key= "${e.keyCode}"]`)
+        box.classList.add('active');
+        box.addEventListener("transitionend", function (e) {
+            box.classList.remove('active');
+        })
+    }
+    window.addEventListener('keydown', playing);
+</script>
+
+</html>
